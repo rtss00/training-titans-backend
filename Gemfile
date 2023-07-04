@@ -46,6 +46,10 @@ gem 'pg'
 
 gem 'rack-cors'
 
+gem 'activeadmin'
+
+gem 'devise', '4.9.2'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
