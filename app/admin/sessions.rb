@@ -15,5 +15,6 @@ ActiveAdmin.register Session do
   index do
     column :id
     column :created_at
+    actions
   end
 end

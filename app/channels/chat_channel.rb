@@ -9,4 +9,8 @@ class ChatChannel < ApplicationCable::Channel
     # Determine actions
     ActionCable.server.broadcast(current_session, data)
   end
+
+  def respond(data)
+    binding.pry
+  end
 end
