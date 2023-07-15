@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   namespace :api do
+    resources :conversations, only: [:index, :show, :create]
     resources :profiles, only: [:index, :show]
   end
 end
