@@ -1,12 +1,20 @@
-class ApiController < ActionController::API
-  include JsonWebToken
+module Api
+  class ApiController < ActionController::API
+    include JsonWebToken
 
-  before_action :authenticate
+    respond_to :json
 
-  def authenticate
-    header = requests.headers['Authorization']
-    header = header.split(" ").last if header
-    token = jwt_decode(header)
-    @current_session = Session.find(token[:id])
+    before_action :authenticate
+
+    def authenticate
+      header = request.headers['Authorization']
+      header = header.split(" ").last if header
+      token = jwt_decode(header)
+
+      @current_session = Session.find(token[:id])
+
+    rescue JWT::DecodeError, ActiveRecord::RecordNotFound
+      head :unauthorized
+    end
   end
 end

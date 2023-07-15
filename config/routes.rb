@@ -5,5 +5,7 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  resources :conversations, only: :show
+  namespace :api do
+    resources :profiles, only: [:index, :show]
+  end
 end
