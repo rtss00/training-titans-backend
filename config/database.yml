@@ -13,8 +13,8 @@ default: &default
 development:
   <<: *default
   database: training_titans_development
-  username: <%= Rails.application.credentials.database[:user] %>
-  password: <%= Rails.application.credentials.database[:password] %>
+  username: postgres
+  password: password
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

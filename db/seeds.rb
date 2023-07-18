@@ -15,10 +15,10 @@ if Rails.env.development?
   technology_3 = Technology.create!(name: 'TypeScript', description: 'TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.')
 
   # Job Description Profile
-  profile_1 = Profile.create!(description: 'The candidate is an MIT graduate with 10 years of experience in software development using React.')
+  profile_1 = Profile.create!(description: 'The candidate is an MIT graduate with 10 years of experience in software development using React.', name: 'React Senior', area: 'Frontend', language: 'English')
   
   # Candidate profile
-  profile_2 = Profile.create!(description: 'The candidate is an university undergraduate with 3 years of experience in software development.')
+  profile_2 = Profile.create!(description: 'The candidate is an university undergraduate with 3 years of experience in software development.', name: 'React Junior', area: 'Frontend', language: 'Spanish')
 
   # Requirements for profile 1 (used as target)
   requirement_1 = Requirement.new(seniority: nil)

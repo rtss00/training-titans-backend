@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :conversations, only: [:index, :show, :create]
     resources :profiles, only: [:index, :show]
+    resources :technologies, only: [:index, :show]
   end
 end
