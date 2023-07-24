@@ -1,12 +1,18 @@
 ActiveAdmin.register Profile do
   include JsonWebToken
 
-  permit_params :description, requirements_attributes: [:id, :technology_id, :seniority]
+  permit_params :id,
+                :name,
+                :area,
+                :description, 
+                :language_id, 
+                requirements_attributes: [:id, :technology_id, :seniority]
   
   show do
     attributes_table do
       row :id
-      row :description
+      row :name
+      row :language
       row :created_at
       row :updated_at
 
@@ -25,6 +31,9 @@ ActiveAdmin.register Profile do
   index do
     selectable_column
     column :id
+    column :name
+    column :area
+    column :language
     column :description
     column :created_at
     actions
@@ -34,7 +43,11 @@ ActiveAdmin.register Profile do
     f.semantic_errors
 
     inputs 'Details' do
+      input :name
+      input :area
       input :description
+      input :language
+
       f.has_many :requirements do |requirement|
         requirement.input :technology
         requirement.input :seniority
