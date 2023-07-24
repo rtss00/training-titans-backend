@@ -28,6 +28,7 @@ RSpec.describe Api::ConversationsController, type: :controller do
     end
 
     it 'returns correct data' do
+      profile = create(:profile)
       create(:conversation, session: session)
       create(:conversation, session: session)
 
@@ -72,8 +73,9 @@ RSpec.describe Api::ConversationsController, type: :controller do
 
   describe 'POST create' do
     let(:session) { create(:session) }
-    let(:candidate_profile) { create(:profile) }
-    let(:target_profile) { create(:profile) }
+    let(:language) { create(:language) }
+    let(:candidate_profile) { create(:profile, language: language) }
+    let(:target_profile) { create(:profile, language: language) }
 
     before do |example|
       next if example.metadata[:skip_before]
@@ -88,7 +90,7 @@ RSpec.describe Api::ConversationsController, type: :controller do
 
     it 'returns the conversation data when creation is successful' do
       params = { candidate_profile_id: candidate_profile.id, target_profile_id: target_profile.id }
-      
+
       post :create, params: params
 
       parsed_body = JSON.parse(response.body)
