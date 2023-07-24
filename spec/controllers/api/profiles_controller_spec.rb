@@ -8,8 +8,9 @@ RSpec.describe Api::ProfilesController, type: :controller do
     end
 
     it 'returns correct data' do
-      create(:profile)
-      create(:profile)
+      language = create(:language)
+      create(:profile, language: language)
+      create(:profile, language: language)
 
       get :index
 
@@ -38,6 +39,30 @@ RSpec.describe Api::ProfilesController, type: :controller do
 
       expect(response).to have_http_status(:success)
       expect(parsed_body).not_to be_empty
+    end
+  end
+
+  describe 'POST create' do
+    let(:session) { create(:session) }
+
+    before do |example|
+      next if example.metadata[:skip_before]
+      authenticate_request(session)
+    end
+
+    it 'creates the resource correcty with a language name specified' do
+      technology = create(:technology)
+      language = create(:language)
+      params = build(:profile).attributes.compact.merge('language' => language.name)
+      requirements = {
+        'technology_id' => technology.id,
+        'seniority' => 'senior'
+      }
+      params.merge!('requirements_attributes' => [requirements])
+
+      post :create, params: { 'profile' => params }
+
+      expect(response).to have_http_status(:created)
     end
   end
 end

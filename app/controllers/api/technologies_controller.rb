@@ -5,7 +5,7 @@ module Api
     end
 
     def show
-      @technologies = Technology.includes(requirements: :technology).find(params[:id])
+      @technology = Technology.find(params[:id])
     end
   end
 end

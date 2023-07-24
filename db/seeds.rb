@@ -10,15 +10,33 @@ if Rails.env.development?
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
   # Technologies
-  technology_1 = Technology.create!(name: 'Scrum', description: 'Scrum is an agile project management system commonly used in software development')
-  technology_2 = Technology.create!(name: 'React', description: 'React is a free and open-source front-end JavaScript library for building user interfaces based on components.')
-  technology_3 = Technology.create!(name: 'TypeScript', description: 'TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.')
+  technology_1 = Technology.create!(
+    name: 'Scrum', 
+    description: 'Scrum is an agile project management system commonly used in software development')
+  technology_2 = Technology.create!(
+    name: 'React', 
+    description: 'React is a free and open-source front-end JavaScript library for building user interfaces based on components.')
+  technology_3 = Technology.create!(
+    name: 'TypeScript', 
+    description: 'TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.')
+
+  # Languages
+  language_1 = Language.create!(name: "English")
+  language_2 = Language.create!(name: "Spanish")
 
   # Job Description Profile
-  profile_1 = Profile.create!(description: 'The candidate is an MIT graduate with 10 years of experience in software development using React.', name: 'React Senior', area: 'Frontend', language: 'English')
+  profile_1 = Profile.create!(
+    name: "Test Profile 1",
+    area: "Senior Frontend",
+    description: 'The candidate is an MIT graduate with 10 years of experience in software development using React.',
+    language: language_1)
   
   # Candidate profile
-  profile_2 = Profile.create!(description: 'The candidate is an university undergraduate with 3 years of experience in software development.', name: 'React Junior', area: 'Frontend', language: 'Spanish')
+  profile_2 = Profile.create!(
+    name: "Test Profile 2",
+    area: "Senior Backend",
+    description: 'The candidate is an university undergraduate with 3 years of experience in software development.',
+    language: language_1)
 
   # Requirements for profile 1 (used as target)
   requirement_1 = Requirement.new(seniority: nil)
