@@ -75,8 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_042121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "language_id", null: false
-    t.string "name"
-    t.string "area"
     t.index ["language_id"], name: "index_profiles_on_language_id"
   end
 
