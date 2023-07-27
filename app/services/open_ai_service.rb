@@ -8,7 +8,7 @@ class OpenAiService
     @client.chat(
       parameters: {
         model: "gpt-3.5-turbo-16k-0613",
-        messages: messages,
+        messages: messages(prompt),
         max_tokens: 2048
       }
     )
@@ -27,11 +27,11 @@ class OpenAiService
   private
 
   def finish
-    message_history = messages
+    message_history = messages(nil)
     message_history.append(ending_message)
   end
 
-  def messages
+  def messages(prompt)
     message_history = @conversation.messages.select(:actor, :content).order(:created_at, :id).map do |message|
       if message.actor == 'candidate'
         candidate_message(message)
@@ -41,6 +41,9 @@ class OpenAiService
     end
 
     message_history.insert(0, starting_prompt)
+    message_history.append({ role: :user, content: prompt }) if prompt.present?
+
+    message_history
   end
 
   def starting_prompt

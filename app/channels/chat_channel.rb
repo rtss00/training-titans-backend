@@ -17,7 +17,7 @@ class ChatChannel < ApplicationCable::Channel
     candidate_message_content = candidate_message_json['answer']
     response = { message: candidate_message_content } 
 
-    report_error("Model returned an unexpected response") unless candidate_message_content.present?
+    report_model_error("Model returned an unexpected response") unless candidate_message_content.present?
 
     interviewer_message = Message.create!(
       content: data[:message], 
@@ -40,7 +40,7 @@ class ChatChannel < ApplicationCable::Channel
     ActionCable.server.broadcast(current_session, feedback)
   end
 
-  def report_error(e)
+  def report_model_error(e)
     ActionCable.server.broadcast({ error: e.to_s })
   end
 end
