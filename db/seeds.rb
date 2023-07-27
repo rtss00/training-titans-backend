@@ -65,5 +65,19 @@ if Rails.env.development?
   end
 
   # Sessions
-  Session.create!
+  session = Session.create!
+
+  # Conversations
+  conversation = Conversation.create!(candidate_profile: profile_1, target_profile: profile_1, session: session)
+  messages = [
+    Message.new(actor: :interviewer, content: 'Hello, how are you today?'),
+    Message.new(actor: :candidate, content: "I'm doing great! Thanks for letting me take part of this hiring process."),
+    Message.new(actor: :interviewer, content: "And thank you for being available for us. How about we start today's interview with some introductions? I'll introduce myself first."),
+    Message.new(actor: :candidate, content: 'Sure, go ahead!'),
+    Message.new(actor: :interviewer, content: "My name is Renzo. I'm an iOS engineer and technical interviewer at Company Ltd. I live in Spain and have been working here for about two years. What about you?"),
+    Message.new(actor: :candidate, content: 'Great! My name is Candidate and I have been working as a React developer for the past several years. I have experience working on various web applications, both as part of a team and independently. I am passionate about clean code and following best practices in software development. I enjoy solving complex problems and continuously learning new technologies.')
+  ].each do |message|
+    message.conversation = conversation
+    message.save!
+  end
 end

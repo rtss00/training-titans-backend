@@ -17,7 +17,6 @@ module ApplicationCable
     private
 
     def report_error(e)
-      binding.pry
       reject_unauthorized_connection
     end
 

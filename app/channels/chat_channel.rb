@@ -13,8 +13,11 @@ class ChatChannel < ApplicationCable::Channel
     service = OpenAiService.new(conversation: conversation)
     prompt = data[:message]
     completion = service.respond(prompt: prompt)
-    candidate_message_content = completion['choices'][0]['message']['content']
+    candidate_message_json = JSON.parse(completion['choices'][0]['message']['content'])
+    candidate_message_content = candidate_message_json['answer']
     response = { message: candidate_message_content } 
+
+    report_error("Model returned an unexpected response") unless candidate_message_content.present?
 
     interviewer_message = Message.create!(
       content: data[:message], 
@@ -26,6 +29,15 @@ class ChatChannel < ApplicationCable::Channel
       conversation: conversation)
 
     ActionCable.server.broadcast(current_session, response)
+  end
+
+  def terminate
+    conversation = current_session[:conversation]
+    service = OpenAiService.new(conversation: conversation)
+    feedback_completion = service.terminate
+    feedback = JSON.parse(feedback_completion['choices'][0]['message']['content'])
+    
+    ActionCable.server.broadcast(current_session, feedback)
   end
 
   def report_error(e)

@@ -12,6 +12,7 @@ ActiveAdmin.register Profile do
     attributes_table do
       row :id
       row :name
+      row :description
       row :language
       row :created_at
       row :updated_at
