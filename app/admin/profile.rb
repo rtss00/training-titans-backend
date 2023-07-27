@@ -6,7 +6,7 @@ ActiveAdmin.register Profile do
                 :area,
                 :description, 
                 :language_id, 
-                requirements_attributes: [:id, :technology_id, :seniority]
+                requirements_attributes: [:id, :technology_id, :seniority, :_destroy]
   
   show do
     attributes_table do
@@ -47,7 +47,9 @@ ActiveAdmin.register Profile do
       input :area
       input :description
       input :language
+    end
 
+    inputs 'Requirements' do
       f.has_many :requirements do |requirement|
         requirement.input :technology
         requirement.input :seniority

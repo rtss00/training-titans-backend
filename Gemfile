@@ -47,6 +47,7 @@ gem 'rack-cors'
 gem 'activeadmin'
 gem 'devise', '4.9.2'
 gem 'jwt'
+gem 'ruby-openai'
 
 # Use Sass to process CSS
 gem 'sassc-rails'
