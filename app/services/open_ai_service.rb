@@ -39,11 +39,13 @@ class OpenAiService
         interviewer_message(message.content)
       end
     end
-    binding.pry
-
-    message_history.insert(0, starting_prompt)
+    
+    base_prompts = [starting_prompt] + example_messages
+    
+    message_history = base_prompts + message_history
     message_history.append(interviewer_message(prompt)) if prompt.present?
-
+    
+    binding.pry
     message_history
   end
 
@@ -83,5 +85,12 @@ class OpenAiService
       role: :system,
       content: renderer.content
     }
+  end
+
+  def example_messages
+    [
+      interviewer_message('Are you ready to start our simulation?'),
+      candidate_message('Yes! I am ready.')
+    ]
   end
 end
