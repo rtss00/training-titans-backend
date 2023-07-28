@@ -6,8 +6,7 @@ module Api
     end
 
     def show
-      conversation = Conversation.find(params[:id])
-      render json: conversation 
+      @conversation = Conversation.includes(:messages).find(params[:id])
     end
 
     def create
