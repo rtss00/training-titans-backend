@@ -20,7 +20,9 @@ module Api
       values = params.require(:profile).permit(
         :language, 
         :language_id, 
-        :description, 
+        :description,
+        :name,
+        :area,
         requirements_attributes: [
           :technology_id, 
           :seniority
