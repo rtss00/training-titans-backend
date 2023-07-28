@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :conversations, only: [:index, :show, :create]
     resources :profiles, only: [:index, :show, :create]
     resources :technologies, only: [:index, :show]
+    resources :languages, only: [:index, :show]
   end
 end

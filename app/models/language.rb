@@ -1,3 +1,3 @@
 class Language < ApplicationRecord
-  has_many :profiles 
+  # has_many :profiles 
 end
