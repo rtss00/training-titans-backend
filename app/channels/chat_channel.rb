@@ -1,5 +1,5 @@
 class ChatChannel < ApplicationCable::Channel
-  rescue_from StandardError, with: :report_error
+  rescue_from StandardError, with: :report_model_error
 
   def subscribed
     stream_from current_session
@@ -17,6 +17,7 @@ class ChatChannel < ApplicationCable::Channel
     candidate_message_content = candidate_message_json['answer']
     response = { message: candidate_message_content } 
 
+    binding.pry
     report_model_error("Model returned an unexpected response") unless candidate_message_content.present?
 
     interviewer_message = Message.create!(
@@ -41,6 +42,6 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def report_model_error(e)
-    ActionCable.server.broadcast({ error: e.to_s })
+    ActionCable.server.broadcast(current_session, { error: e.to_s })
   end
 end

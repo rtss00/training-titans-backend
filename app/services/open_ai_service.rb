@@ -34,14 +34,15 @@ class OpenAiService
   def messages(prompt)
     message_history = @conversation.messages.select(:actor, :content).order(:created_at, :id).map do |message|
       if message.actor == 'candidate'
-        candidate_message(message)
+        candidate_message(message.content)
       else
-        interviewer_message(message)
+        interviewer_message(message.content)
       end
     end
+    binding.pry
 
     message_history.insert(0, starting_prompt)
-    message_history.append({ role: :user, content: prompt }) if prompt.present?
+    message_history.append(interviewer_message(prompt)) if prompt.present?
 
     message_history
   end
@@ -56,8 +57,7 @@ class OpenAiService
     }
   end
 
-  def interviewer_message(message)
-    interviewer_message = message.content
+  def interviewer_message(interviewer_message)
     confidence_level = nil
     renderer = TemplateRenderer.new(:interviewer_message, binding)
 
@@ -67,8 +67,7 @@ class OpenAiService
     }
   end
 
-  def candidate_message(message)
-    candidate_message = message.content
+  def candidate_message(candidate_message)
     renderer = TemplateRenderer.new(:candidate_message, binding)
 
     {
