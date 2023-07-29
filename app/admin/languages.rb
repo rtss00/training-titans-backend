@@ -1,4 +1,5 @@
 ActiveAdmin.register Language do
+  permit_params :name, :created_at, :updated_at
   include JsonWebToken
   
   show do

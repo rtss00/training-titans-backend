@@ -1,4 +1,5 @@
 ActiveAdmin.register Technology do
+  permit_params :name, :description, :created_at, :updated_at
   include JsonWebToken
   
   show do
