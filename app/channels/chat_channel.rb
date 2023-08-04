@@ -17,7 +17,6 @@ class ChatChannel < ApplicationCable::Channel
     candidate_message_content = candidate_message_json['answer']
     response = { message: candidate_message_content } 
 
-    binding.pry
     report_model_error("Model returned an unexpected response") unless candidate_message_content.present?
 
     interviewer_message = Message.create!(

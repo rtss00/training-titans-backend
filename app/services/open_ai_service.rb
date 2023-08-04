@@ -45,7 +45,6 @@ class OpenAiService
     message_history = base_prompts + message_history
     message_history.append(interviewer_message(prompt)) if prompt.present?
     
-    binding.pry
     message_history
   end
 
