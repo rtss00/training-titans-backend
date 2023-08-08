@@ -1,5 +1,5 @@
 class ChatChannel < ApplicationCable::Channel
-  rescue_from StandardError, with: :report_error
+  rescue_from StandardError, with: :report_model_error
 
   def subscribed
     stream_from current_session
@@ -41,6 +41,6 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def report_model_error(e)
-    ActionCable.server.broadcast({ error: e.to_s })
+    ActionCable.server.broadcast(current_session, { error: e.to_s })
   end
 end
