@@ -10,7 +10,7 @@ module Api
 
     def create
       @profile = Profile.create!(profile_params)
-
+      params[:requirements].each { |m| Requirement.create!(technology_id: m[:id], profile_id: @profile[:id], seniority: m[:seniority]) }
       render :show, status: :created
     end
 
